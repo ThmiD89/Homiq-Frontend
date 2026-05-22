@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMIQ - Browse All Properties</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/listings.css">
+</head>
+<body>
+    <!-- Navbar will be loaded by main.js -->
+
+    <main>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="container">
+                <h1 class="page-title">Find Your Dream Home</h1>
+                <p class="page-subtitle">Browse through thousands of rental properties across Bangladesh</p>
+            </div>
+        </section>
+
+        <!-- Listings Section -->
+        <section class="listings">
+            <div class="container">
+                <div class="listings-layout">
+                    <!-- Filter Sidebar -->
+                    <aside class="filter-sidebar">
+                        <div class="filter-header">
+                            <h3 class="filter-title">Filters</h3>
+                            <button id="clearFilters" class="filter-clear">Clear All</button>
+                        </div>
+                        
+                        <!-- Search -->
+                        <div class="filter-group">
+                            <label class="filter-label">Search</label>
+                            <input type="text" id="searchInput" class="filter-input" placeholder="Search by title or location...">
+                        </div>
+                        
+                        <!-- Location -->
+                        <div class="filter-group">
+                            <label class="filter-label">Location</label>
+                            <input type="text" id="locationFilter" class="filter-input" placeholder="Enter area name...">
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="filter-group">
+                            <label class="filter-label">Price Range (৳/month)</label>
+                            <div class="price-range">
+                                <input type="number" id="minPrice" class="filter-input" placeholder="Min">
+                                <input type="number" id="maxPrice" class="filter-input" placeholder="Max">
+                            </div>
+                        </div>
+                        
+                        <!-- Availability Status -->
+                        <div class="filter-group">
+                            <label class="filter-label">Availability</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="radio" name="status" value="all" id="statusAll" checked> All Properties
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="radio" name="status" value="available"> Available Only
+                                </label>
+                                <label class="checkbox-label">
+                                    <input type="radio" name="status" value="booked"> Booked Only
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Bedrooms -->
+                        <div class="filter-group">
+                            <label class="filter-label">Bedrooms</label>
+                            <div class="bedroom-buttons">
+                                <button type="button" class="bedroom-btn active" data-bedrooms="all">All</button>
+                                <button type="button" class="bedroom-btn" data-bedrooms="1">1</button>
+                                <button type="button" class="bedroom-btn" data-bedrooms="2">2</button>
+                                <button type="button" class="bedroom-btn" data-bedrooms="3">3</button>
+                                <button type="button" class="bedroom-btn" data-bedrooms="4">4+</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Apply Button -->
+                        <div class="filter-actions">
+                            <button id="applyFilters" class="filter-apply">Apply Filters</button>
+                        </div>
+                    </aside>
+                    
+                    <!-- Properties Content -->
+                    <div class="properties-content">
+                        <div class="results-header">
+                            <div class="results-count" id="resultsCount">
+                                <span>0</span> properties found
+                            </div>
+                            <select id="sortSelect" class="sort-select">
+                                <option value="default">Sort by: Default</option>
+                                <option value="price_asc">Price: Low to High</option>
+                                <option value="price_desc">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                            </select>
+                        </div>
+                        
+                        <div id="propertiesGrid" class="properties-grid">
+                            <!-- Property cards will be loaded here by JavaScript -->
+                        </div>
+                        
+                        <div id="pagination" class="pagination">
+                            <!-- Pagination buttons will be loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer will be loaded by main.js -->
+
+    <script src="../js/main.js"></script>
+    <script src="../js/listings.js"></script>
+</body>
+</html>

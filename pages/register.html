@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMIQ - Create Your Account</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/auth.css">
+</head>
+<body>
+    <!-- Navbar will be loaded by main.js -->
+
+    <main>
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="auth-logo">HOM<span>IQ</span></div>
+                    <h1 class="auth-title">Create Account</h1>
+                    <p class="auth-subtitle">Join HOMIQ today</p>
+                </div>
+                
+                <div class="auth-body">
+                    <!-- FORM STARTS HERE -->
+                    <form id="registerForm" class="auth-form">
+                        <!-- Role Selection First -->
+                        <div class="role-selection-container">
+                            <label class="form-label">I am a</label>
+                            <div class="role-selector">
+                                <div class="role-option">
+                                    <input type="radio" name="role" id="roleTenant" value="tenant" checked>
+                                    <label for="roleTenant">🏠 Tenant</label>
+                                </div>
+                                <div class="role-option">
+                                    <input type="radio" name="role" id="roleLandlord" value="landlord">
+                                    <label for="roleLandlord">🏢 Landlord</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Basic Info Section (Common for both) -->
+                        <div class="form-section">
+                            <h3 class="section-title">Basic Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="fullname" class="form-label">Full Name *</label>
+                                <input type="text" id="fullname" class="form-input" placeholder="Enter your full name" autocomplete="name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email" class="form-label">Email Address *</label>
+                                <input type="email" id="email" class="form-input" placeholder="Enter your email" autocomplete="email">
+                                <small class="form-hint">We'll send verification email to this address</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="phone" class="form-label">Phone Number *</label>
+                                <input type="tel" id="phone" class="form-input" placeholder="+880 1XXX XXXXXX">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="password" class="form-label">Password *</label>
+                                <div style="position: relative;">
+                                    <input type="password" id="password" class="form-input" placeholder="Create a password" style="padding-right: 45px;">
+                                    <button type="button" id="togglePassword" class="password-toggle" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                                </div>
+                                <div class="password-strength">
+                                    <div class="strength-bar">
+                                        <div class="strength-fill"></div>
+                                    </div>
+                                    <div class="strength-text"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirmPassword" class="form-label">Confirm Password *</label>
+                                <div style="position: relative;">
+                                    <input type="password" id="confirmPassword" class="form-input" placeholder="Confirm your password" style="padding-right: 45px;">
+                                    <button type="button" id="toggleConfirmPassword" class="password-toggle" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 1.1rem;">👁️</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tenant Specific Fields -->
+                        <div id="tenantFields" class="form-section role-specific-fields">
+                            <h3 class="section-title">Tenant Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="occupation" class="form-label">Occupation</label>
+                                <select id="occupation" class="form-select">
+                                    <option value="">Select Occupation</option>
+                                    <option value="service">Service Holder</option>
+                                    <option value="business">Business Person</option>
+                                    <option value="student">Student</option>
+                                    <option value="freelancer">Freelancer</option>
+                                    <option value="housewife">Housewife</option>
+                                    <option value="retired">Retired</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="companyName" class="form-label">Company/Institute Name</label>
+                                <input type="text" id="companyName" class="form-input" placeholder="Where do you work/study?">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="currentAddress" class="form-label">Current Address</label>
+                                <textarea id="currentAddress" class="form-textarea" placeholder="Your current living address" rows="2"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="emergencyContact" class="form-label">Emergency Contact Number</label>
+                                <input type="tel" id="emergencyContact" class="form-input" placeholder="Emergency contact number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="familyMembers" class="form-label">Number of Family Members</label>
+                                <select id="familyMembers" class="form-select">
+                                    <option value="1">1 (Living Alone)</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6+</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="preferredArea" class="form-label">Preferred Area to Live</label>
+                                <input type="text" id="preferredArea" class="form-input" placeholder="e.g., Gulshan, Banani, Uttara">
+                            </div>
+                        </div>
+
+                        <!-- Landlord Specific Fields -->
+                        <div id="landlordFields" class="form-section role-specific-fields" style="display: none;">
+                            <h3 class="section-title">Landlord Information</h3>
+                            
+                            <div class="form-group">
+                                <label for="nidNumber" class="form-label">NID Number *</label>
+                                <input type="text" id="nidNumber" class="form-input" placeholder="Your National ID Card Number">
+                                <small class="form-hint">10 or 17 digit NID number</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tinNumber" class="form-label">TIN Number (Optional)</label>
+                                <input type="text" id="tinNumber" class="form-input" placeholder="Tax Identification Number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="propertyCount" class="form-label">Number of Properties</label>
+                                <select id="propertyCount" class="form-select">
+                                    <option value="1">1 Property</option>
+                                    <option value="2">2 Properties</option>
+                                    <option value="3">3 Properties</option>
+                                    <option value="4">4 Properties</option>
+                                    <option value="5">5+ Properties</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="businessAddress" class="form-label">Business/Office Address</label>
+                                <textarea id="businessAddress" class="form-textarea" placeholder="Your business or office address" rows="2"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="referenceName" class="form-label">Reference Person Name</label>
+                                <input type="text" id="referenceName" class="form-input" placeholder="Name of a reference person">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="referenceContact" class="form-label">Reference Contact Number</label>
+                                <input type="tel" id="referenceContact" class="form-input" placeholder="Reference person's phone number">
+                            </div>
+                        </div>
+
+                        <!-- Verification Code Section -->
+                        <div class="form-section verification-section">
+                            <h3 class="section-title">Verification</h3>
+                            
+                            <div class="form-group">
+                                <label for="verificationCode" class="form-label">Verification Code</label>
+                                <div style="display: flex; gap: var(--spacing-sm);">
+                                    <input type="text" id="verificationCode" class="form-input" placeholder="Enter 6-digit code" maxlength="6" style="flex: 1;">
+                                    <button type="button" id="sendVerificationCodeBtn" class="btn btn-outline">Send Code</button>
+                                </div>
+                                <small class="form-hint" id="verificationHint">Click "Send Code" to receive verification code</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="agreeTerms"> 
+                                    I agree to the <a href="#" id="termsLink" style="color: var(--green); text-decoration: underline; cursor: pointer;">Terms & Conditions</a> and <a href="#" id="privacyLink" style="color: var(--green); text-decoration: underline; cursor: pointer;">Privacy Policy</a>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="registerBtn" class="btn btn-primary auth-btn">Create Account</button>
+                    </form>
+                    <!-- FORM ENDS HERE -->
+                </div>
+                
+                <div class="auth-footer">
+                    <p class="auth-footer-text">
+                        Already have an account? 
+                        <a href="login.html" class="auth-footer-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer will be loaded by main.js -->
+
+    <script src="../js/main.js"></script>
+    <script src="../js/auth.js"></script>
+
+    <!-- Terms & Conditions Modal -->
+    <div id="termsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Terms & Conditions</h3>
+                <button class="modal-close" id="closeTermsModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <h4>1. Acceptance of Terms</h4>
+                    <p>By accessing and using HOMIQ, you accept and agree to be bound by these Terms & Conditions.</p>
+                    <h4>2. User Registration</h4>
+                    <p>You must provide accurate information when registering.</p>
+                    <h4>3. Property Listings</h4>
+                    <p>Landlords agree to provide accurate property information.</p>
+                    <h4>4. Booking and Payments</h4>
+                    <p>All bookings are subject to property availability.</p>
+                    <h4>5. User Conduct</h4>
+                    <p>Users agree not to misuse the platform.</p>
+                    <h4>6. Privacy</h4>
+                    <p>Please review our Privacy Policy.</p>
+                    <h4>7. Termination</h4>
+                    <p>HOMIQ reserves the right to suspend accounts.</p>
+                    <h4>8. Contact</h4>
+                    <p>Email: legal@homiq.com</p>
+                    <p class="modal-footer-note"><strong>Last Updated:</strong> January 1, 2024</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="acceptTermsBtn">I Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Privacy Policy Modal -->
+    <div id="privacyModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>Privacy Policy</h3>
+                <button class="modal-close" id="closePrivacyModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-content">
+                    <h4>Information We Collect</h4>
+                    <p>We collect name, email, phone, and role information.</p>
+                    <h4>How We Use Your Information</h4>
+                    <p>To facilitate property rentals and bookings.</p>
+                    <h4>Data Security</h4>
+                    <p>We implement industry-standard security measures.</p>
+                    <h4>Contact Us</h4>
+                    <p>Email: privacy@homiq.com</p>
+                    <p class="modal-footer-note"><strong>Last Updated:</strong> January 1, 2024</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="acceptPrivacyBtn">I Accept</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

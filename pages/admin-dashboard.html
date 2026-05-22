@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - HOMIQ</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <!-- Navbar will be loaded by main.js -->
+
+    <main>
+        <div class="dashboard-container">
+            <div class="container">
+                <!-- Dashboard Header -->
+                <div class="dashboard-header">
+                    <div>
+                        <h1 class="dashboard-title">Admin Dashboard</h1>
+                        <p class="dashboard-subtitle">Manage users, properties, and platform activities</p>
+                    </div>
+                    <div class="admin-date" id="currentDateTime"></div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="admin-stats">
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">👥</div>
+                        <div class="admin-stat-value" id="totalUsers">0</div>
+                        <div class="admin-stat-label">Total Users</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">🏠</div>
+                        <div class="admin-stat-value" id="totalProperties">0</div>
+                        <div class="admin-stat-label">Total Properties</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">🟢</div>
+                        <div class="admin-stat-value" id="activeProperties">0</div>
+                        <div class="admin-stat-label">Available Properties</div>
+                    </div>
+                    <div class="admin-stat-card">
+                        <div class="admin-stat-icon">🔴</div>
+                        <div class="admin-stat-value" id="bookedProperties">0</div>
+                        <div class="admin-stat-label">Booked Properties</div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="quick-actions">
+                    <div class="quick-action-card" onclick="generateUserReport()">
+                        <div class="quick-action-icon">📊</div>
+                        <div class="quick-action-title">User Report</div>
+                    </div>
+                    <div class="quick-action-card" onclick="generatePropertyReport()">
+                        <div class="quick-action-icon">🏘️</div>
+                        <div class="quick-action-title">Property Report</div>
+                    </div>
+                    <div class="quick-action-card" onclick="exportAllData()">
+                        <div class="quick-action-icon">📥</div>
+                        <div class="quick-action-title">Export Data</div>
+                    </div>
+                    <div class="quick-action-card" onclick="clearAllFilters()">
+                        <div class="quick-action-icon">🔄</div>
+                        <div class="quick-action-title">Reset Filters</div>
+                    </div>
+                    <div class="quick-action-card" onclick="refreshData()">
+                        <div class="quick-action-icon">🔃</div>
+                        <div class="quick-action-title">Refresh</div>
+                    </div>
+                    <div class="quick-action-card" onclick="showSystemStats()">
+                        <div class="quick-action-icon">⚙️</div>
+                        <div class="quick-action-title">System Stats</div>
+                    </div>
+                </div>
+
+                <!-- ========== USERS SECTION ========== -->
+                <div class="report-section" style="margin-top: 0;">
+                    <h3 class="report-title">👥 User Management</h3>
+                    <div class="admin-search-bar">
+                        <div class="admin-search">
+                            <input type="text" id="userSearch" placeholder="Search by name, email, or user ID...">
+                        </div>
+                        <div class="admin-filter">
+                            <select id="userRoleFilter">
+                                <option value="all">All Roles</option>
+                                <option value="tenant">Tenants</option>
+                                <option value="landlord">Landlords</option>
+                                <option value="admin">Admins</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>User ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Joined</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTableBody">
+                                <tr><td colspan="8" style="text-align: center;">Loading users...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="usersPagination" class="pagination"></div>
+                </div>
+
+                <!-- ========== PROPERTIES SECTION ========== -->
+                <div class="report-section">
+                    <h3 class="report-title">🏠 Property Management</h3>
+                    <div class="admin-search-bar">
+                        <div class="admin-search">
+                            <input type="text" id="propertySearch" placeholder="Search by title, location, or landlord...">
+                        </div>
+                        <div class="admin-filter">
+                            <select id="propertyStatusFilter">
+                                <option value="all">All Status</option>
+                                <option value="available">Available</option>
+                                <option value="booked">Booked</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Image</th>
+                                    <th>Title</th>
+                                    <th>Location</th>
+                                    <th>Landlord</th>
+                                    <th>Rent</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="propertiesTableBody">
+                                <td><td colspan="7" style="text-align: center;">Loading properties...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="propertiesPagination" class="pagination"></div>
+                </div>
+
+                <!-- ========== PAYMENTS SECTION ========== -->
+                <div class="report-section">
+                    <h3 class="report-title">💰 Payment History</h3>
+                    <div class="admin-search-bar">
+                        <div class="admin-search">
+                            <input type="text" id="paymentSearch" placeholder="Search by property or transaction...">
+                        </div>
+                    </div>
+                    
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Property</th>
+                                    <th>Amount</th>
+                                    <th>Method</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="paymentsTableBody">
+                                <tr><td colspan="6" style="text-align: center;">No payment records found</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ========== REPORTS SECTION ========== -->
+                <div class="report-section">
+                    <h3 class="report-title">📈 Generate Reports</h3>
+                    <div class="report-buttons">
+                        <button class="report-btn" onclick="generateUserReport()">📊 User Report (CSV)</button>
+                        <button class="report-btn" onclick="generatePropertyReport()">🏠 Property Report (CSV)</button>
+                        <button class="report-btn" onclick="generatePaymentReport()">💰 Payment Report (CSV)</button>
+                        <button class="report-btn" onclick="generateFullReport()">📑 Full System Report</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- View User Details Modal -->
+        <div id="userDetailModal" class="modal-overlay">
+            <div class="modal" style="max-width: 500px;">
+                <div class="modal-header">
+                    <h3>User Details</h3>
+                    <button class="modal-close" onclick="closeUserDetailModal()">&times;</button>
+                </div>
+                <div class="modal-body" id="userDetailContent">Loading...</div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeUserDetailModal()">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Confirmation Modal -->
+        <div id="confirmModal" class="modal-overlay">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header">
+                    <h3 id="confirmTitle">Confirm Action</h3>
+                    <button class="modal-close" onclick="closeConfirmModal()">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">Are you sure you want to perform this action?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline" onclick="closeConfirmModal()">Cancel</button>
+                    <button class="btn btn-danger" id="confirmActionBtn">Confirm</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- System Stats Modal -->
+        <div id="systemStatsModal" class="modal-overlay">
+            <div class="modal" style="max-width: 600px;">
+                <div class="modal-header">
+                    <h3>System Statistics</h3>
+                    <button class="modal-close" onclick="closeSystemStatsModal()">&times;</button>
+                </div>
+                <div class="modal-body" id="systemStatsContent">Loading...</div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" onclick="closeSystemStatsModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
