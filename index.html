@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOMIQ - Find Your Perfect Home in Bangladesh</title>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <!-- Navbar will be loaded by main.js -->
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">Find Your Perfect Home</h1>
+                    <p class="hero-subtitle">Discover thousands of rental properties across Bangladesh. From affordable flats to luxury apartments.</p>
+                    <div class="hero-search">
+                        <input type="text" id="homeSearchInput" class="hero-search-input" placeholder="Search by city, area, or property name...">
+                        <button id="homeSearchBtn" class="hero-search-btn">Search →</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Properties Section -->
+        <section class="featured">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Properties</h2>
+                    <p class="section-subtitle">Handpicked properties just for you</p>
+                </div>
+                <div id="featuredGrid" class="property-grid">
+                    <!-- Property cards will be loaded here by JavaScript -->
+                </div>
+                <div class="view-all-container">
+                    <a href="pages/listings.html" class="btn-view-all">View All Properties →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">How HOMIQ Works</h2>
+                    <p class="section-subtitle">Simple steps to find your next home</p>
+                </div>
+                <div class="steps-grid">
+                    <div class="step">
+                        <div class="step-icon">🔍</div>
+                        <h3 class="step-title">Search Properties</h3>
+                        <p class="step-text">Browse thousands of rental properties across Bangladesh</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">📋</div>
+                        <h3 class="step-title">Compare & Choose</h3>
+                        <p class="step-text">Compare prices, locations, and amenities</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-icon">🔑</div>
+                        <h3 class="step-title">Book Your Home</h3>
+                        <p class="step-text">Contact landlord and book your dream home</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section for Landlords - Buttons update based on login state -->
+        <section class="cta-section" id="ctaSection">
+            <div class="container">
+                <div class="cta-content">
+                    <h2 class="cta-title">Own a Property?</h2>
+                    <p class="cta-text">List your property on HOMIQ and connect with thousands of potential tenants</p>
+                    <div class="cta-buttons" id="ctaButtons">
+                        <!-- Buttons will be dynamically updated based on login state -->
+                        <a href="pages/register.html" class="cta-btn-primary">List Your Property →</a>
+                        <a href="pages/listings.html" class="cta-btn-secondary">Browse Properties</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer will be loaded by main.js -->
+
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+    
+    <!-- Dynamic CTA Button Script -->
+    <script>
+        // Update CTA buttons based on login state
+        function updateCTAButtons() {
+            const currentUser = localStorage.getItem('currentUser');
+            const userRole = localStorage.getItem('userRole');
+            const ctaButtons = document.getElementById('ctaButtons');
+            
+            if (!ctaButtons) return;
+            
+            if (currentUser && userRole === 'landlord') {
+                // Landlord is logged in - show dashboard link
+                ctaButtons.innerHTML = `
+                    <a href="pages/landlord-dashboard.html" class="cta-btn-primary">📋 Go to My Dashboard →</a>
+                    <a href="pages/listings.html" class="cta-btn-secondary">🔍 Browse Properties</a>
+                `;
+            } else if (currentUser && userRole === 'tenant') {
+                // Tenant is logged in - show bookings link
+                ctaButtons.innerHTML = `
+                    <a href="pages/tenant-dashboard.html" class="cta-btn-primary">📅 View My Bookings →</a>
+                    <a href="pages/listings.html" class="cta-btn-secondary">🔍 Browse Properties</a>
+                `;
+            } else if (currentUser && userRole === 'admin') {
+                // Admin is logged in - show admin panel link
+                ctaButtons.innerHTML = `
+                    <a href="pages/admin-dashboard.html" class="cta-btn-primary">⚙️ Go to Admin Panel →</a>
+                    <a href="pages/listings.html" class="cta-btn-secondary">🔍 Browse Properties</a>
+                `;
+            } else {
+                // Not logged in - show register link
+                ctaButtons.innerHTML = `
+                    <a href="pages/register.html" class="cta-btn-primary">List Your Property →</a>
+                    <a href="pages/listings.html" class="cta-btn-secondary">Browse Properties</a>
+                `;
+            }
+        }
+        
+        // Run when page loads
+        document.addEventListener('DOMContentLoaded', updateCTAButtons);
+    </script>
+</body>
+</html>
